@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "353678079003",
+    "firebase_url": "https://codecovtravis.firebaseio.com",
+    "project_id": "codecovtravis",
+    "storage_bucket": "codecovtravis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353678079003:android:a6db10636405910c",
+        "android_client_info": {
+          "package_name": "com.android.codecovtravis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353678079003-4aga4jj6mrifqa2n0vmdhuj1lo68091t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.codecovtravis",
+            "certificate_hash": "deff4299b70606883eac817dbb0efe868c82ef35"
+          }
+        },
+        {
+          "client_id": "353678079003-k8voqpb4kgkm05k2mhsrpnc0n0ubd5g2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLIzCioQMoccXBpPaWduJwi5EK5Yu_n0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353678079003-k8voqpb4kgkm05k2mhsrpnc0n0ubd5g2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
