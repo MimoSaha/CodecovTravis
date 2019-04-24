@@ -30,8 +30,13 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-   - ./gradlew clean build assembleDebug
+  - ./gradlew build jacocoTestReport assembleAndroidTest
+  - ./gradlew connectedCheck
+#  - ./gradlew clean build assembleDebug
 #   - ./gradlew :app:lintDebug
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 after_failure:
   # Customize this line, 'android' is the specific app module name of this project. Shows log.
