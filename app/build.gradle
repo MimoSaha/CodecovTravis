@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
+apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'jacoco'
 
@@ -28,6 +29,20 @@ android {
 jacoco {
     toolVersion = '0.7.5.201505241946'
 }
+
+/*jacocoTestReport{
+    executionData = "${buildDir}/jacoco/test.exec"
+}*/
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/coverage/debug/report.xml"
+}
+
+tasks.coveralls {
+    dependsOn 'connectedAndroidTest'
+    onlyIf { System.env.'CI' }
+}
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
