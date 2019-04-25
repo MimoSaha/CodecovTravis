@@ -1,6 +1,8 @@
 package com.android.codecovtravis;
 
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -30,26 +32,30 @@ public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
+    private Handler handler;
+
     @Test
     public void mainActivityTest() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        try {
-            Thread.sleep(7000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.hello_world_text), withText("Hello World!"),
-                        childAtPosition(
+        handler = new Handler(Looper.getMainLooper());
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ViewInteraction textView = onView(
+                        allOf(withId(R.id.hello_world_text), withText("Hello World!"),
                                 childAtPosition(
-                                        withId(android.R.id.content),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0),
                                         0),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Hello World!")));
+                                isDisplayed()));
+                textView.check(matches(withText("Hello World!")));
+            }
+        }, 7000);
     }
 
     private static Matcher<View> childAtPosition(
