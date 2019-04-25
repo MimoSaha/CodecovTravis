@@ -64,14 +64,14 @@ script:
   #  - ./gradlew build assembleDebug
   #  - ./gradlew build lintDebug coveralls assembleDebug
   - gcloud components update
-  - gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=A0001,version=22,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
+  - gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=A0001,version=22,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/coverage.ec --directories-to-pull=/sdcard --timeout 20m
 #  - ./gradlew connectedCheck
 #  - ./gradlew build coveralls
 #  - gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --type=robo --device model=Nexus4,version=19
 
 after_success:
   - mkdir firebase
-  - gsutil -m cp -r -U "`gsutil ls gs://test-lab-3udbiqpdyp0d0-miwcp7d69v80m | tail -1`*" /root/workspace/firebase/
+  - gsutil -m cp -r -U "`gsutil ls gs://test-lab-sykztvt9x55c0-nwn7yyd7jnpb8 | tail -1`*" /root/workspace/firebase/
   - mkdir -p app/build/outputs/code-coverage/connected && cp firebase/A0001-22-en_US-portrait/artifacts/coverage.ec app/build/outputs/code-coverage/connected/coverage.ec
   - ./gradlew -PciBuild=true :app:jacocoTestReport
   - bash <(curl -s https://codecov.io/bash)
