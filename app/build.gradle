@@ -36,6 +36,7 @@ jacoco {
 
 coveralls {
     jacocoReportPath = "${buildDir}/reports/coverage/debug/report.xml"
+    jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
 }
 
 tasks.coveralls {
@@ -43,6 +44,38 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+task jacocoRootReport(type: JacocoReport) {
+    sourceDirectories = files()
+    classDirectories = files()
+    executionData     = fileTree(
+            dir     : "$buildDir",
+            include : [ 'outputs/code-coverage/connected/*coverage.ec' ]
+    )
+    reports {
+        xml.enabled true
+        html.destination file("${buildDir}/jacocoHtml")
+        csv.enabled false
+    }
+    onlyIf = {
+        true
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    dependencies {
+        testCompile 'junit:junit:4.12'
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
